@@ -35,16 +35,18 @@ class Factory {
     fun sale(ourDealer: Dealer, b: Int) {
         ourDealer.dealersCar.addAll(carList.take(b).map { it as CarPrice }.toMutableList())
         carList.take(b).forEach { car ->
-            budget = (budget + (car as CarPrice).price * 1.5).toInt()
+            val factorySellOut = (car as CarPrice).price * 1.5
+            budget = (budget + factorySellOut).toInt()
+            ourDealer.budgetDealer -= factorySellOut.toInt()
         }
         for (i in 0 until b) {
             println(
-                when (carList.first()) {
-                    is Miniven -> "Продали Минивен"
-                    is Suv -> "Продали SUV"
-                    is Sedan -> "Продали Седан"
-                    else -> "ошибка"
-                }
+                    when (carList.first()) {
+                        is Miniven -> "Продали Минивен"
+                        is Suv -> "Продали SUV"
+                        is Sedan -> "Продали Седан"
+                        else -> "ошибка"
+                    }
             )
             carList.removeFirst()
         }
