@@ -33,11 +33,11 @@ class Factory {
     }
 
     fun sale(ourDealer: Dealer, b: Int) {
-        ourDealer.dealersCar.addAll(carList.take(b).map { it as CarPrice }.toMutableList())
+        ourDealer.carList.addAll(carList.take(b).map { it as CarPrice }.toMutableList())
         carList.take(b).forEach { car ->
             val factorySellOut = (car as CarPrice).price * 1.5
             budget = (budget + factorySellOut).toInt()
-            ourDealer.budgetDealer -= factorySellOut.toInt()
+            ourDealer.budget -= factorySellOut.toInt()
         }
         for (i in 0 until b) {
             println(
