@@ -1,0 +1,1 @@
+enum class Brand {BMW, Mersedes, Audi}

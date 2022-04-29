@@ -1,0 +1,1 @@
+enum class Complectation {LOW, MID, TOP}
