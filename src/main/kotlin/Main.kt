@@ -1,8 +1,10 @@
+import kotlin.random.Random
+
 fun main() {
 
     val ourFactory = Factory()
     val ourDealer = Dealer()
-    var input = ""
+    var input: String
     do {
         println("Привет, я завод автомобилей, чем займемся?")
         val a: List<String>? = readLine()?.split(' ')
@@ -22,8 +24,17 @@ fun main() {
             "exit" -> break
             "dealer_sale" -> {
                 println("Бюджет дилера равен ${ourDealer.budgetDealer}")
-                val car = ourDealer.saleToClient(Client(TypeOfClient.VIP))
-                println("Дилер продал ${car.brand} ${car.color} ${car.complectation} за ${(car as CarPrice).price}, теперь его бюджет ${ourDealer.budgetDealer}")
+                val c = Random.nextInt(0, 3)
+                val client = Client(
+                        when (c) {
+                            0 -> TypeOfClient.VIP
+                            1 -> TypeOfClient.Important
+                            2 -> TypeOfClient.New
+                            else -> TypeOfClient.New
+                        }
+                )
+                val car = ourDealer.saleToClient(client)
+                println("Дилер продал ${client.typeOfClient} ${car.brand} ${car.color} ${car.complectation} за ${(car as CarPrice).price}, теперь его бюджет ${ourDealer.budgetDealer}")
             }
         }
         println("День окончен, баланс завода ${ourFactory.budget}")
